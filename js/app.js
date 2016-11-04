@@ -23,11 +23,6 @@ $(document).ready(function(){
     return Rx.Observable.fromPromise(jQuery.getJSON(requestUrl));
   });
 
-  responseStream.subscribe(function(response) {
-    $('#debug').text(JSON.stringify(response,null,4));
-    console.log('[SUB] response %o', response);
-  });
-
 
   // Suggestion Stream
   var suggestionStream = responseStream.map(function(listUsers) {
@@ -41,6 +36,12 @@ $(document).ready(function(){
     var names = suggestion.map(s => s.login);
     $('#tracker').html(names.join('<br>'));
     console.log('[SUGGESTION] Render %o', names);
+  });
+
+
+  responseStream.subscribe(function(response) {
+    $('#debug').text(JSON.stringify(response,null,4));
+    console.log('[SUB] response %o', response);
   });
 
 
